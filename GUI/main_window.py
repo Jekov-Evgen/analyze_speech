@@ -2,7 +2,9 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QMainWindow, QWidget, QMessageBox
 from PyQt6.QtGui import QIcon
 from tkinter import filedialog
-from convert_logics.logics import taking_out, convert_m4a_to_wav
+from convert_logics.logics import taking_out
+from ML.model import analysis
+from window import err
 from GUI.style_wind import CONST_WINDOW
 
 
@@ -39,9 +41,17 @@ class MainWindow(QMainWindow):
         
             sound = taking_out(self.file_path)
         except:
-            error = QMessageBox()
-            error.setWindowTitle("Ошибка")
-            error.setText("Программа крайне чуствительна, скорее всего ваш аудиофайл имеет плохое качетсво")
+            err()
+        
+        try:
+            result_analysis = analysis(sound)
+        
+            self.result = QMessageBox()
+            self.result.setWindowTitle("Результат")
+            self.result.setText(result_analysis)
+            self.result.show()
+        except:
+            err()
         
         
         
