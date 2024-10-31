@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QMainWindow, QWidget
+from PyQt6.QtWidgets import QLabel, QVBoxLayout, QPushButton, QMainWindow, QWidget, QMessageBox
 from PyQt6.QtGui import QIcon
 from tkinter import filedialog
 from convert_logics.logics import taking_out, convert_m4a_to_wav
@@ -31,13 +31,18 @@ class MainWindow(QMainWindow):
         self.show()
         
     def write_sound(self):
-        self.file_path = filedialog.askopenfilename(
+        try:
+            self.file_path = filedialog.askopenfilename(
                 title="select file",
                 filetypes=[("Audio Files", "*.mp4"), ("All Files", "*.*")]
             )
         
-        sound = taking_out(self.file_path)
-        print(sound)
+            sound = taking_out(self.file_path)
+        except:
+            error = QMessageBox()
+            error.setWindowTitle("Ошибка")
+            error.setText("Программа крайне чуствительна, скорее всего ваш аудиофайл имеет плохое качетсво")
+        
         
         
         
