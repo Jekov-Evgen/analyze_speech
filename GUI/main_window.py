@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         
         instructions = QLabel(text="select file for sentiment analysis")
-        support = QLabel(text="support format: PCM WAV, AIFF/AIFF-C and Native FLAC")
+        support = QLabel(text="support format: mp4")
         start_analysis = QPushButton(text="select file")
         start_analysis.clicked.connect(self.write_sound)
         
